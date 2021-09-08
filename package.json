@@ -1,0 +1,22 @@
+{
+  "name": "searchapp",
+  "version": "1.0.0",
+  "description": "a search tool",
+  "main": "searchApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teddyliangfh/searchApp.git"
+  },
+  "author": "Ted",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teddyliangfh/searchApp/issues"
+  },
+  "homepage": "https://github.com/teddyliangfh/searchApp#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2"
+  }
+}

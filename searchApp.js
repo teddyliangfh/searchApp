@@ -1,9 +1,24 @@
 "use strict";
 
+// var inquirer = require("inquirer");
+// inquirer
+//   .prompt([
+//     {
+//       type: "confirm",
+//       name: "test",
+//       message: "Are you ok?",
+//       default: true,
+//     },
+//   ])
+//   .then((answers) => {
+//     console.log("result:");
+//     console.log(answers);
+//   });
+
 const fs = require("fs");
 //get data ready
-const ticketsData = fs.readFileSync("tickets.json");
-const usersData = fs.readFileSync("users.json");
+const ticketsData = fs.readFileSync("./data/tickets.json");
+const usersData = fs.readFileSync("./data/users.json");
 
 const tickets = JSON.parse(ticketsData);
 const users = JSON.parse(usersData);
@@ -70,4 +85,5 @@ function searchUsers(keyword, term) {
 function showResult() {}
 // searchByKeyword(75, "_id", users);
 // searchTickets("problem", "type");
-searchUsers(false, "verified");
+// searchUsers(false, "verified");
+// console.log("my%scat%s", "猫", 3);
