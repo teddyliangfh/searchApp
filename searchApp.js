@@ -8,7 +8,7 @@ const usersData = fs.readFileSync("./data/users.json");
 const tickets = JSON.parse(ticketsData);
 const users = JSON.parse(usersData);
 
-//search func
+//search func, input: keyword: the search value, term: the field eg:_id, profile: data source
 function searchByKeyword(keyword, term, profile) {
   const matchData = (profile || []).filter(
     (profile) => profile[term] === keyword
@@ -18,16 +18,8 @@ function searchByKeyword(keyword, term, profile) {
 }
 
 function searchTickets(keyword, term) {
-  //result including all informaton in ticket
-  //_id
-  //created_at
-  //subject
-  //assignee_id
-  //tags
-  //---------------------from usersData
-  //assignee_name
   const selectedTickets = searchByKeyword(keyword, term, tickets);
-  //add assignee_name
+  //add assignee_name --from usersData
   const fullInfoTickets = selectedTickets.map((item) => {
     let newProperty = searchByKeyword(item?.assignee_id, "_id", users)[0]?.name;
     console.log("newProperty", newProperty);
@@ -39,18 +31,16 @@ function searchTickets(keyword, term) {
 }
 
 function searchUsers(keyword, term) {
-  //results:
-  // "_id": 74,
-  //"name":
-  //"created_at"
-  //"verified"
-  //--------------------from tickets data
-  //tickets
+  //add tickets --from tickets data
   const selectedUsers = searchByKeyword(keyword, term, users);
   const fullInfoUsers = selectedUsers.map((item) => {
-    let newInfo = searchByKeyword(item?._id, "assignee_id", tickets)[0]
-      ?.subject;
-    item.tickets = newInfo;
+    // let newInfo = searchByKeyword(item?._id, "assignee_id", tickets)[0]?.subject;
+    let newInfos = searchByKeyword(item?._id, "assignee_id", tickets);
+    let ticketsArr = [];
+    newInfos.forEach((item) => {
+      ticketsArr.push(item.subject);
+    });
+    item.tickets = ticketsArr;
     return item;
   });
   // console.log("fullInfoUsers", fullInfoUsers);
@@ -81,13 +71,24 @@ function dealAnswers(answers) {
   }
 }
 
+// show the search result in the way people can read
+function showResult(result) {
+  if (result && result.length > 0) {
+    result.map((item) => {
+      console.log(item);
+    });
+  } else {
+    console.log("sorry, no result found");
+  }
+}
+
 //interact with user:
 var inquirer = require("inquirer");
 const promptList = [
   {
     type: "expand",
     message:
-      "Welcome to Zendesk Search, 1) press 1 to search users 2)press 2 to search tickets",
+      "Welcome to Zendesk Search \n 1) press 1 to search users \n 2)press 2 to search tickets",
     name: "searchType",
     choices: [
       {
@@ -113,21 +114,18 @@ const promptList = [
     message: "Enter search value",
   },
 ];
-inquirer.prompt(promptList).then((answers) => {
-  console.log(
-    `searching ${answers.searchType} for${answers.term} with a value of ${answers.searchValue}`,
-    answers
-  );
-  dealAnswers(answers);
-});
 
-// show the search result in the way people can read
-function showResult(result) {
-  result.map((item) => {
-    console.log(item);
+inquirer
+  .prompt(promptList)
+  .then((answers) => {
+    console.log(
+      `searching ${answers.searchType} for ${answers.term} with a value of ${answers.searchValue}`
+    );
+    dealAnswers(answers);
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+    } else {
+      throw error;
+    }
   });
-}
-// searchByKeyword(75, "_id", users);
-// searchTickets("problem", "type");
-// searchUsers(false, "verified");
-// console.log("my%scat%s", "猫", 3);
