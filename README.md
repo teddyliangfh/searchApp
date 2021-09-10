@@ -1,7 +1,7 @@
 # A search application:
 
 ## How to install:
-* run npm install to intall the dependencies
+* run npm install to install the dependencies
 
 * How to run the application:
 * open commandline, type node searchApp.js
