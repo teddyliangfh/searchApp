@@ -3,7 +3,7 @@
 ## How to install:
 * run npm install to install the dependencies
 
-* How to run the application:
+## How to run the application:
 * open commandline, type node searchApp.js
 
 ## How to search:
