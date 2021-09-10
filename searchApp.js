@@ -88,7 +88,7 @@ const promptList = [
   {
     type: "expand",
     message:
-      "Welcome to Zendesk Search \n 1) press 1 to search users \n 2)press 2 to search tickets",
+      "Welcome to Zendesk Search \n 1) press 1 to search users \n 2) press 2 to search tickets",
     name: "searchType",
     choices: [
       {
