@@ -1,12 +1,12 @@
-A search application:
+# A search application:
 
-# How to install:
+## How to install:
 * run npm install to intall the dependencies
 
 * How to run the application:
 * open commandline, type node searchApp.js
 
-# How to search:
+## How to search:
 * press 1) to search search users,  
 * you can search users with terms : 1)_id 2)name 3)created_at 4)verified
 * press 2) to search tickets,
